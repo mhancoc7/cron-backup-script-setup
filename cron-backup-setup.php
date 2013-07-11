@@ -20,6 +20,9 @@ $string = $_SERVER["PHP_DOCUMENT_ROOT"];
 // define url
     $url = $_SERVER['SERVER_NAME'];
 
+// define backup path
+    $path = getcwd();
+
 if (isset($_POST["Submit"])) {
 
 $string = '<?php 
@@ -35,6 +38,7 @@ $db_user = "'. $_POST["db_user"]. '";
 $db_password = "'. $_POST["db_password"]. '";
 $db_name = "'. $_POST["db_name"]. '";
 $url = "'. $_POST["url"]. '";
+$path = "'. $_POST["path"]. '";
 $datacenter = "'. $_POST["datacenter"]. '";
 
 //Set your Cloud Files API credentials
@@ -175,9 +179,12 @@ function removeSpaces(string) {
 <p>
     <input name="url" type="hidden" id="url" value="<?php echo $url ?>" onblur="this.value=removeSpaces(this.value);" required="required">
 </p>
+
 <p>
+    <input name="path" type="hidden" id="path" value="<?php echo $path ?>" onblur="this.value=removeSpaces(this.value);" required="required">
+</p>
 
-
+<p>
 <font color="red"><em>By using the Cron Backup Setup script you are agreeing to the terms of the GPL License! See: <a href="http://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPL v3</a></em></font><br /><br />
     <input type="submit" name="Submit" value="Install" style="background-color:#ccc; -moz-border-radius: 15px; border-radius: 15px; text-align:center; width:250px; color:#000; padding:3px;">
 </p>
