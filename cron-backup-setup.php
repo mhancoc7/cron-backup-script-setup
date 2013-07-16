@@ -9,7 +9,8 @@
 shell_exec('wget https://github.com/jeremehancock/cron-backup-script/archive/master.zip --no-check-certificate -O cron-backup.zip; unzip cron-backup.zip; rm cron-backup-script-master/README.md; mv cron-backup-script-master/* ../../; rm -r cron-backup-script-master; rm cron-backup.zip');
 
 // determine datacenter for storage
-$string = $_SERVER["PHP_DOCUMENT_ROOT"];
+    $string = $_SERVER["PHP_DOCUMENT_ROOT"];
+
     $pos = strpos($string, "dfw");
     if ($pos == false) {
         $datacenter = "ORD";
@@ -17,8 +18,15 @@ $string = $_SERVER["PHP_DOCUMENT_ROOT"];
         $datacenter = "DFW";
     }
 
-// define url
-    $url = $_SERVER['SERVER_NAME'];
+// define url -- will check for test link and remove extra characters if installing from test link
+    $server = $_SERVER['SERVER_NAME'];
+
+    if (strpos($server,'websitetestlink') !== false) {
+        $split = explode(".php",$server,2);
+        $url = $split[0];
+    } else {
+        $url = $_SERVER['SERVER_NAME'];
+    }
 
 // define backup path
     $path = getcwd();
