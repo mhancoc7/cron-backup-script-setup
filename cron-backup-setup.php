@@ -53,6 +53,14 @@ $datacenter = "'. $_POST["datacenter"]. '";
 $username = "'. $_POST["username"]. '";
 $key = "'. $_POST["key"]. '"; 
 
+// Backup Database? This checks if the database credentials are empty and if so the script will skip the database backup
+if (!empty($db_host) || !empty($db_user) || !empty($db_password) || !empty($db_name)) {
+$db_backup = "true";
+}
+else {
+$db_backup = "false";
+}
+
 ?>';
 
 $fp = fopen("../../cron-backup-config.php", "w");
@@ -149,6 +157,8 @@ function removeSpaces(string) {
 <br />
 <form action="" method="post" name="install" id="install">
 <em>Enter your database credentials</em>
+<br/>
+<font color="red"><em>Note: Leave blank you don't have a database.</em></font>
 <p>
      Database Username:<br />
     <input name="db_user" type="text" id="db_user" value="" onblur="this.value=removeSpaces(this.value);"> 
@@ -193,7 +203,7 @@ function removeSpaces(string) {
 </p>
 
 <p>
-<font color="red"><em>By using the Cron Backup Setup script you are agreeing to the terms of the GPL License! See: <a href="http://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPL v3</a></em></font><br /><br />
+<font color="red"><em>By using the Cron Backup Setup script you are agreeing to the terms of the GPL License! <br/>See: <a href="http://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPL v3</a></em></font><br /><br />
     <input type="submit" name="Submit" value="Install" style="background-color:#ccc; -moz-border-radius: 15px; border-radius: 15px; text-align:center; width:250px; color:#000; padding:3px;">
 </p>
 
