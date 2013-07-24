@@ -54,7 +54,7 @@ $username = "'. $_POST["username"]. '";
 $key = "'. $_POST["key"]. '"; 
 
 // Backup Database? This checks if the database credentials are empty and if so the script will skip the database backup
-if (!empty($db_host) || !empty($db_user) || !empty($db_password) || !empty($db_name)) {
+if (!empty($db_host) && !empty($db_user) && !empty($db_password) && !empty($db_name)) {
 $db_backup = "true";
 }
 else {
