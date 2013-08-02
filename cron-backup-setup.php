@@ -31,6 +31,10 @@ shell_exec('wget https://github.com/jeremehancock/cron-backup-script/archive/mas
 // define backup path
     $path = getcwd();
 
+// get current version for config file
+   $latest_version = file_get_contents('https://raw.github.com/jeremehancock/cron-backup-script-setup/master/version.txt');
+   $latest_version = preg_replace( "/\r|\n/", "", $latest_version );
+
 if (isset($_POST["Submit"])) {
 
 $string = '<?php 
@@ -60,6 +64,8 @@ $db_backup = "true";
 else {
 $db_backup = "false";
 }
+
+$installed_version = "'. $_POST["version"]. '";
 
 ?>';
 
@@ -200,6 +206,10 @@ function removeSpaces(string) {
 
 <p>
     <input name="path" type="hidden" id="path" value="<?php echo $path ?>" onblur="this.value=removeSpaces(this.value);" required="required">
+</p>
+
+<p>
+    <input name="version" type="hidden" id="version" value="<?php echo $latest_version ?>" onblur="this.value=removeSpaces(this.value);" required="required">
 </p>
 
 <p>
